@@ -1,10 +1,10 @@
 import express from "express";
 import path from "path";
 import cors from "cors";
-import homeApp from "./APIs/home.js";
 import userApp from "./APIs/users.js";
 import recipesApp from "./APIs/recipes.js";
 import { MongoClient } from "mongodb";
+import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
 dotenv.config({ path: "../.env" });
@@ -28,11 +28,6 @@ MongoClient.connect(process.env.DB_URI)
     console.log(error);
   });
 
-const __dirname = path.resolve();
-
-app.use("/", express.static(path.join(__dirname, "public")));
-
-app.use("/", homeApp);
 app.use("/users", userApp);
 app.use("/recipes", recipesApp);
 
@@ -40,8 +35,13 @@ app.use((err, req, res, next) => {
   res.send({ status: "error", message: err.message });
 });
 
-if (process.env.CURR_ENV === "production") {
-}
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
+});
 
 app.listen(port, () => {
   console.log(`Server running on ${port}`);
