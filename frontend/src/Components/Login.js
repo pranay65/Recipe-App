@@ -12,7 +12,10 @@ function LoginPage() {
   const onSubmit = async (event) => {
     event.preventDefault();
     await axios
-      .post("http://localhost:4500/users/login", { username, password })
+      .post(`${process.env.REACT_APP_SERVER_URL}/users/login`, {
+        username,
+        password,
+      })
       .then((res) => {
         if (res.data.status === 404) {
           alert("User Not Found!");

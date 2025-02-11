@@ -13,7 +13,7 @@ function Home() {
   useEffect(() => {
     const getRecipe = async () => {
       await axios
-        .get("http://localhost:4500/recipes")
+        .get(`${process.env.REACT_APP_SERVER_URL}/recipes`)
         .then((res) => {
           setRecipes(res.data);
         })
@@ -24,7 +24,7 @@ function Home() {
     const getSavedRecipe = async () => {
       await axios
         .put(
-          "http://localhost:4500/recipes/saved",
+          `${process.env.REACT_APP_SERVER_URL}/recipes/saved`,
           {},
           {
             headers: { Authorization: token },
@@ -46,7 +46,7 @@ function Home() {
       recipeID: r,
     };
     await axios
-      .post("http://localhost:4500/recipes/save", obj, {
+      .post(`${process.env.REACT_APP_SERVER_URL}/save`, obj, {
         headers: { Authorization: token },
       })
       .then((res) => {

@@ -10,7 +10,7 @@ function Saved() {
     const getSavedRecipe = async () => {
       await axios
         .put(
-          "http://localhost:4500/recipes/saved",
+          `${process.env.REACT_APP_SERVER_URL}/recipes/saved`,
           {},
           {
             headers: { Authorization: token },

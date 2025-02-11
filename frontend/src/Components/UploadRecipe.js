@@ -41,7 +41,7 @@ function Upload() {
   const onSubmit = async (event) => {
     event.preventDefault();
     await axios
-      .post("http://localhost:4500/recipes/create", recipe, {
+      .post(`${process.env.REACT_APP_SERVER_URL}/recipes/create`, recipe, {
         headers: { authorization: token },
       })
       .then((res) => {

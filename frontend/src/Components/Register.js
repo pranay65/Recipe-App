@@ -13,7 +13,7 @@ function Register() {
   const onSubmit = async (event) => {
     event.preventDefault();
     await axios
-      .post("http://localhost:4500/users/register", {
+      .post(`${process.env.REACT_APP_SERVER_URL}/users/register`, {
         username,
         password,
         savedRecipes,
