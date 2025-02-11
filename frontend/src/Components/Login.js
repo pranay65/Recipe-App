@@ -12,7 +12,7 @@ function LoginPage() {
   const onSubmit = async (event) => {
     event.preventDefault();
     await axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/users/login`, {
+      .post(`http://localhost:4500/users/login`, {
         username,
         password,
       })
